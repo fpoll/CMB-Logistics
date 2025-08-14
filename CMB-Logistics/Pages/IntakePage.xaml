@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             x:Class="cmb.logistics.Pages.IntakePage"
+             Title="CMB Intake">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="16">
+            <Label Text="1) Scanner le QR du concours + numéro de bouteille" FontAttributes="Bold"/>
+            <Frame Padding="0" HasShadow="True" CornerRadius="12" HeightRequest="260">
+                <Grid>
+                    <zxing:CameraBarcodeReaderView x:Name="QrReader"
+                                               BarcodesDetected="OnBarcodesDetected"
+                                               HorizontalOptions="Fill" VerticalOptions="Fill" />
+                    <Label Text="Cadrez le QRCode" HorizontalOptions="Center" VerticalOptions="End" Margin="0,0,0,8" BackgroundColor="#66000000" TextColor="White"/>
+                </Grid>
+            </Frame>
+            <Label x:Name="QrResultLabel" Text="QR: —"/>
+
+            <Label Text="2) Prendre la photo des 2 bouteilles (couchées, face/contre-étiquette)" FontAttributes="Bold"/>
+            <Button Text="Prendre une photo" Clicked="OnTakePhoto" />
+            <Image x:Name="Preview" HeightRequest="220" Aspect="AspectFill"/>
+
+            <Label Text="3) Scanner les autres codes (EAN13 / QR) ou appuyer sur le bouton s'il n'y en a pas" FontAttributes="Bold"/>
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Scanner autres codes" Clicked="OnScanExtra" />
+                <Button Text="Aucun code à scanner" Clicked="OnNoExtra" />
+            </HorizontalStackLayout>
+            <Label x:Name="ExtraLabel" Text="Codes supplémentaires: 0"/>
+
+            <Label Text="4) Valider l'envoi" FontAttributes="Bold"/>
+            <Button Text="Envoyer à l'API (stub)" Clicked="OnSubmit" />
+            <Label x:Name="SubmitStatus" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
